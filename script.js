@@ -46,7 +46,6 @@ const app = Vue.createApp({
       } else {
         this.playerHealth += attackValue;
       }
-      this.attackPlayer();
     },
   },
 });
