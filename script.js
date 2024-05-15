@@ -8,6 +8,7 @@ const app = Vue.createApp({
       mansterHealth: 100,
       playerHealth: 100,
       current: 0,
+      winner: null,
     };
   },
   computed: {
@@ -19,6 +20,26 @@ const app = Vue.createApp({
     },
     useSpecialAttack() {
       return this.current % 3 !== 0;
+    },
+  },
+  watch: {
+    playerHealth(value) {
+      if (value <= 0 && this.mansterHealth <= 0) {
+        // A draw
+        this.winner = "draw";
+      } else if (value < 0) {
+        // player lost
+        this.winner = "manster";
+      }
+    },
+    mantsterHalth(value) {
+      if (value <= 0 && this.playerHealth <= 0) {
+        // a draw
+        this.winner = "draw";
+      } else if (value < 0) {
+        // mamnster lost
+        this.winner = "player";
+      }
     },
   },
   methods: {
