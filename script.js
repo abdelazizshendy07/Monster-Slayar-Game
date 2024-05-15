@@ -7,6 +7,7 @@ const app = Vue.createApp({
     return {
       mansterHealth: 100,
       playerHealth: 100,
+      current: 0,
     };
   },
   computed: {
@@ -16,9 +17,13 @@ const app = Vue.createApp({
     playerBarStyle() {
       return { width: this.playerHealth + "%" };
     },
+    useSpecialAttack() {
+      return this.current % 3 !== 0;
+    },
   },
   methods: {
     attackManster() {
+      this.current++;
       const attackValue = getRendomValue(12, 5);
       this.mansterHealth -= attackValue;
       this.attackPlayer();
@@ -26,6 +31,22 @@ const app = Vue.createApp({
     attackPlayer() {
       const attackValue = getRendomValue(15, 9);
       this.playerHealth -= attackValue;
+    },
+    specialAttack() {
+      this.current++;
+      const attackValue = getRendomValue(25, 10);
+      this.mansterHealth -= attackValue;
+      this.attackPlayer();
+    },
+    healPlayer() {
+      this.current++;
+      const attackValue = getRendomValue(11, 4);
+      if (this.playerHealth + attackValue > 100) {
+        this.playerHealth = 100;
+      } else {
+        this.playerHealth += attackValue;
+      }
+      this.attackPlayer();
     },
   },
 });
