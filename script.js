@@ -32,7 +32,7 @@ const app = Vue.createApp({
         this.winner = "manster";
       }
     },
-    mantsterHalth(value) {
+    mansterHealth(value) {
       if (value <= 0 && this.playerHealth <= 0) {
         // a draw
         this.winner = "draw";
@@ -50,7 +50,7 @@ const app = Vue.createApp({
       this.attackPlayer();
     },
     attackPlayer() {
-      const attackValue = getRendomValue(15, 9);
+      const attackValue = getRendomValue(15, 8);
       this.playerHealth -= attackValue;
     },
     specialAttack() {
@@ -61,11 +61,11 @@ const app = Vue.createApp({
     },
     healPlayer() {
       this.current++;
-      const attackValue = getRendomValue(11, 4);
-      if (this.playerHealth + attackValue > 100) {
+      const healValue = getRendomValue(20, 8);
+      if (this.playerHealth + healValue > 100) {
         this.playerHealth = 100;
       } else {
-        this.playerHealth += attackValue;
+        this.playerHealth += healValue;
       }
     },
   },
