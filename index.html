@@ -43,7 +43,16 @@
     </section>
     <section id="log" class="container">
       <h2>Battle Log</h2>
-      <ul></ul>
+      <ul>
+        <li v-for="addlog in LogMassages">
+          <span :class="{'log--player':addlog.actionby==='player','log--monster':addlog.actionby==='manster'}">{{
+            addlog.actionby==='player'?'Player':'Manster'}}</span>
+          <span v-if="addlog.actionType==='heal'"> heals himself for <span
+              class="log--heal">{{addlog.actionValue}}</span>
+          </span>
+          <span v-else> attacks and deal <span class="log--damage">{{addlog.actionValue}}</span></span>
+        </li>
+      </ul>
     </section>
   </div>
 </body>

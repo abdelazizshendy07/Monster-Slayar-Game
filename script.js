@@ -9,6 +9,7 @@ const app = Vue.createApp({
       playerHealth: 100,
       current: 0,
       winner: null,
+      LogMassages: [],
     };
   },
   computed: {
@@ -54,21 +55,25 @@ const app = Vue.createApp({
       this.playerHealth = 100;
       this.winner = null;
       this.current = 0;
+      this.LogMassages = [];
     },
     attackManster() {
       this.current++;
       const attackValue = getRendomValue(12, 5);
       this.mansterHealth -= attackValue;
+      this.addLogMassage("player", "attack", attackValue);
       this.attackPlayer();
     },
     attackPlayer() {
       const attackValue = getRendomValue(15, 8);
       this.playerHealth -= attackValue;
+      this.addLogMassage("manster", "attack", attackValue);
     },
     specialAttack() {
       this.current++;
       const attackValue = getRendomValue(25, 10);
       this.mansterHealth -= attackValue;
+      this.addLogMassage("player", "spical-attack", attackValue);
       this.attackPlayer();
     },
     healPlayer() {
@@ -79,9 +84,17 @@ const app = Vue.createApp({
       } else {
         this.playerHealth += healValue;
       }
+      this.addLogMassage("player", "heal", healValue);
     },
     surrender() {
       this.winner = "manster";
+    },
+    addLogMassage(who, what, value) {
+      this.LogMassages.unshift({
+        actionby: who,
+        actionType: what,
+        actionValue: value,
+      });
     },
   },
 });
