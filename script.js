@@ -13,9 +13,15 @@ const app = Vue.createApp({
   },
   computed: {
     mansterBarStyle() {
+      if (this.mansterHealth < 0) {
+        return { width: "0%" };
+      }
       return { width: this.mansterHealth + "%" };
     },
     playerBarStyle() {
+      if (this.playerHealth < 0) {
+        return { width: "0%" };
+      }
       return { width: this.playerHealth + "%" };
     },
     useSpecialAttack() {
@@ -43,6 +49,12 @@ const app = Vue.createApp({
     },
   },
   methods: {
+    startNewGame() {
+      this.mansterHealth = 100;
+      this.playerHealth = 100;
+      this.winner = null;
+      this.current = 0;
+    },
     attackManster() {
       this.current++;
       const attackValue = getRendomValue(12, 5);
@@ -67,6 +79,9 @@ const app = Vue.createApp({
       } else {
         this.playerHealth += healValue;
       }
+    },
+    surrender() {
+      this.winner = "manster";
     },
   },
 });
